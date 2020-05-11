@@ -1,21 +1,39 @@
 require('sinatra')
 require('sinatra/reloader')
+require('./lib/album')
+require('pry')
 also_reload('lib/**/*.rb')
 
+get ('/test') do
+  @something = "this is a variable"
+  erb(:whatever)
+end
+
 get('/') do
-  "This will be our home page. '/' is always the root route in a Sinatra application."
+  @albums = Album.all
+  erb(:albums)
 end
 
 get('/albums') do
-  "This route will show a list of all albums."
+  @albums = Album.all
+  erb(:albums)
+end
+
+post('/albums') do
+  name = params[:album_name]
+  album = Album.new(name, nil)
+  album.save()
+  @albums = Album.all()
+  erb(:albums)
 end
 
 get('/albums/new') do
-  "This will take us to a page with a form for adding a new album."
+  erb(:new_album)
 end
 
 get('/albums/:id') do
-  "This route will show a specific album based on its ID. The value of ID here is #{params[:id]}."
+  @album = Album.find(params[:id].to_i())
+  erb(:album)
 end
 
 post('/albums') do
@@ -23,7 +41,8 @@ post('/albums') do
 end
 
 get('/albums/:id/edit') do
-  "This will take us to a page with a form for updating an album with an ID of #{params[:id]}."
+  @album = Album.find(params[:id].to_i())
+  erb(:edit_album)
 end
 
 patch('/albums/:id') do
