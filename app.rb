@@ -46,11 +46,17 @@ get('/albums/:id/edit') do
 end
 
 patch('/albums/:id') do
-  "This route will update an album. We can't reach it with a URL. In a future lesson, we will use a form that specifies a PATCH action to reach this route."
+  @album = Album.find(params[:id].to_i())
+  @album.update(params[:name])
+  @albums = Album.all
+  erb(:albums)
 end
 
 delete('/albums/:id') do
-  "This route will delete an album. We can't reach it with a URL. In a future lesson, we will use a delete button that specifies a DELETE action to reach this route."
+  @album = Album.find(params[:id].to_1())
+  @album = delete()
+  @albums = Album.all
+  erb(:albums)
 end
 
 get('/custom_route') do
