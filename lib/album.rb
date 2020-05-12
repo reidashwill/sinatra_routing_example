@@ -37,4 +37,8 @@ class Album
   def ==(album_to_compare)
     self.name() == album_to_compare.name()
   end
+
+  def self.search(name)
+    @@albums[name]
+  end
 end
