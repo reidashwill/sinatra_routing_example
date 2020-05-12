@@ -42,4 +42,11 @@ class Album
     array = @@albums.values.select {|album| album.name == name}
     return array
   end
+
+  def self.sort()
+    record_list = @@albums.values
+    record_list.each 
+    record_list.sort_by{ |record| record.name} 
+  end
 end
+

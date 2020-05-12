@@ -92,7 +92,7 @@ describe '#Album' do
       album2.save()
       album3 = Album.new("Bad Reputation", nil)
       album3.save()
-      expect(Album.sort).to(eql({album3, album1, album2 }))
+    expect(Album.sort()).to(eq([album3, album1, album2]))
     end
   end
 
