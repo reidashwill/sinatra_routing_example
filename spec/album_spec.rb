@@ -71,4 +71,14 @@ describe '#Album' do
       expect(Album.all).to(eq([album2]))
     end
   end
+
+  describe('#search') do
+    it("will allow you to search for an album") do
+      album = Album.new("Blue",nil)
+      album.save()
+      album.search("Blue")
+      expect(Album.search()).to(eq("Blue"))
+    end
+  end
+
 end
