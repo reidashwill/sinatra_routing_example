@@ -62,5 +62,3 @@ end
 get('/custom_route') do
   "We can even create custom routes, but we should only do this when needed."
 end
-
-get('/')

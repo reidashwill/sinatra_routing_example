@@ -39,6 +39,7 @@ class Album
   end
 
   def self.search(name)
-    @@albums[name]
+    array = @@albums.values.select {|album| album.name == name}
+    return array
   end
 end

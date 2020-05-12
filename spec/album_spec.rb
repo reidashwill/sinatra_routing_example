@@ -1,4 +1,5 @@
 require 'rspec'
+require 'pry'
 require 'album'
 
 describe '#Album' do
@@ -72,16 +73,14 @@ describe '#Album' do
     end
   end
 
-  describe('#search') do
+  describe('.search') do
     it("will allow you to search for an album") do
       album = Album.new("Blue",nil)
       album.save()
       album1 = Album.new("Master of Puppets", nil)
       album1.save()
-      album2 = Album.new("Reign in Blood", nil)
-      album2.save()
-      album.search("Blue")
-      expect(Album.search()).to(eq("Blue"))
+      # @@albums.search("Blue")
+      expect(Album.search(album.name)).to(eq([album]))
     end
   end
 
