@@ -27,6 +27,11 @@ post('/albums') do
   erb(:albums)
 end
 
+get('/albums/search') do
+  @search_result = Album.search(params[:search])
+  erb(:search_results)
+end
+
 get('/albums/new') do
   erb(:new_album)
 end

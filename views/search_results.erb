@@ -1,0 +1,11 @@
+<%# display for search result %>
+
+<% if @search_result.any? %>
+  <% @search_result.each do |result|  %>
+    <ul>
+    <li><%= result.name%></li>
+    </ul> 
+    <%end%>
+  <% else %>
+    <p>There are no records that match your search</p>
+  <%end%>

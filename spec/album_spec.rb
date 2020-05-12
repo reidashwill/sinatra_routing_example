@@ -84,4 +84,16 @@ describe '#Album' do
     end
   end
 
+  describe('.sort') do
+    it("will allow you to sort albums by name") do
+      album1 = Album.new("In Trance", nil)
+      album1.save()
+      album2 = Album.new("Sad Wings of Destiny", nil)
+      album2.save()
+      album3 = Album.new("Bad Reputation", nil)
+      album3.save()
+      expect(Album.sort).to(eql({album3, album1, album2 }))
+    end
+  end
+
 end
