@@ -1,12 +1,15 @@
 class Album
   attr_reader :id, :name
-  attr_accessor :name
+  attr_accessor :name, :year, :genre, :artist
   @@albums = {}
   @@total_rows = 0
 
-  def initialize(name, id)
+  def initialize(name, id, year, genre, artist)
     @name = name
     @id = id || @@total_rows += 1
+    @year = year
+    @genre = genre
+    @artist = artist
   end
 
   def self.all
@@ -19,7 +22,7 @@ class Album
   end
 
   def save
-    @@albums[self.id] = Album.new(self.name, self.id)
+    @@albums[self.id] = Album.new(self.name, self.id, self.year, self.genre, self.artist)
   end
 
   def self.find(id)
@@ -44,9 +47,19 @@ class Album
   end
 
   def self.sort()
-    record_list = @@albums.values
-    record_list.each 
-    record_list.sort_by{ |record| record.name} 
+    # @@albums.values
+    # @@albums.each
+    # @@albums.sort_by {|album| album.name}
+    
+    @@albums.each do |key, value|
+      @@albums[key] = value.sort{ |a,b| a[1]<=>b[1] }
+    end
+
+    # https://stackoverflow.com/questions/6943216/ruby-how-to-sort-hash-of-hashes/15905150
+    #either mutate the value of @@albums or return a variable to app.rb to be shared with the :albums erb
+    # record_list.each 
+    # record_list.sort_by{ |record| record.name} 
+    # record_list
   end
 end
 

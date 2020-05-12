@@ -96,4 +96,10 @@ describe '#Album' do
     end
   end
 
+  # describe('sold') do
+  #   it("will allow you to notate and album as sold") do
+  #   expect()
+  #   end
+  # end
+
 end

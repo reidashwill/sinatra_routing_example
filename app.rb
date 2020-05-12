@@ -15,15 +15,16 @@ get('/') do
 end
 
 get('/albums') do
-  record_list = Album.new()
-  record_list.sort
-  @albums = Album.all
-  erb(:albums)
+  @whatever = Album.sort
+  erb(:albums)  
 end
 
 post('/albums') do
   name = params[:album_name]
-  album = Album.new(name, nil)
+  year = params[:album_year]
+  genre = params[:album_genre]
+  artist = params[:album_artist]
+  album = Album.new(name, nil, year, genre, artist)
   album.save()
   @albums = Album.all()
   erb(:albums)
@@ -60,8 +61,8 @@ patch('/albums/:id') do
 end
 
 delete('/albums/:id') do
-  @album = Album.find(params[:id].to_1())
-  @album = delete()
+  @album = Album.find(params[:id].to_i())
+  @album.delete()
   @albums = Album.all
   erb(:albums)
 end
