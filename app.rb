@@ -15,6 +15,8 @@ get('/') do
 end
 
 get('/albums') do
+  record_list = Album.new()
+  record_list.sort
   @albums = Album.all
   erb(:albums)
 end
