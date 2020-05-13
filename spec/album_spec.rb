@@ -96,10 +96,15 @@ describe '#Album' do
     end
   end
 
-  # describe('sold') do
-  #   it("will allow you to notate and album as sold") do
-  #   expect()
-  #   end
-  # end
-
+describe('#songs') do
+  it("returns an album's songs") do 
+    album = Album.new("Giant Steps", nil, nil, nil, nil)
+    album.save()
+    song = Song.new("Naima", album.id, nil)
+    song.save()
+    song2 = Song.new("Cousin Mary", album.id, nil)
+    song2.save()
+    expect(album.songs).to(eq([song, song2]))
+    end
+  end
 end

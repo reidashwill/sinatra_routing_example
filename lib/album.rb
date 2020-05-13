@@ -48,13 +48,10 @@ class Album
 
   def self.sort()
     Album.all.sort {|a,b| a.name <=> b.name}
-    end
-
-    # https://stackoverflow.com/questions/6943216/ruby-how-to-sort-hash-of-hashes/15905150
-    #either mutate the value of @@albums or return a variable to app.rb to be shared with the :albums erb
-    # record_list.each 
-    # record_list.sort_by{ |record| record.name} 
-    # record_list
+    end  
   
+  def songs
+    Song.find_by_album(self.id)
+  end 
 end
 
