@@ -15,7 +15,13 @@ get('/') do
 end
 
 get('/albums') do
-  @whatever = Album.sort
+  if (params[:search])
+    @albums = Album.search(params[:search])
+  elsif params[:sort]
+    @albums = Album.sort
+  else
+    @albums = Album.all
+  end
   erb(:albums)  
 end
 

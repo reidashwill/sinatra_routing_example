@@ -3,6 +3,12 @@
 <h3>Available Records</h3>
 
 <% if @albums.any? %>
+<form class="sort" action="/albums">
+  <div class="form-group">
+    <label for="sort">Sort Alphabetically</label>
+    <input id="sort" name="sort" class="form-control" type="submit" value="Go">
+  </div>
+</form>
   <ul>
     <% @albums.each do |album| %>
       <li><%= album.artist %> - <%= album.name %></li>

@@ -47,12 +47,7 @@ class Album
   end
 
   def self.sort()
-    # @@albums.values
-    # @@albums.each
-    # @@albums.sort_by {|album| album.name}
-    
-    @@albums.each do |key, value|
-      @@albums[key] = value.sort{ |a,b| a[1]<=>b[1] }
+    Album.all.sort {|a,b| a.name <=> b.name}
     end
 
     # https://stackoverflow.com/questions/6943216/ruby-how-to-sort-hash-of-hashes/15905150
@@ -60,6 +55,6 @@ class Album
     # record_list.each 
     # record_list.sort_by{ |record| record.name} 
     # record_list
-  end
+  
 end
 
