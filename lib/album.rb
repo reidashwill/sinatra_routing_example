@@ -31,7 +31,7 @@ class Album
     album = DB.exec("SELECT * FROM albums WHERE id = #{id};").first
     name = album.fetch("name")
     id = album.fetch("id").to_i
-    Album.new(({:name => name, :id => id}))
+    Album.new({:name => name, :id => id})
   end
 
   def update(name)
@@ -47,15 +47,13 @@ class Album
     self.name() == album_to_compare.name()
   end
 
-  def self.search(name)
-    array = @@albums.values.select {|album| album.name == name}
-    return array
+  def self.search(album_name)
+    album = DB.exec("SELECT * FROM albums WHERE name = '#{album_name}'").first 
+    name = album.fetch("name")
+    id = album.fetch("id").to_i
+    Album.new({:name => name, :id => id})
   end
 
-  def self.sort()
-    Album.all.sort {|a,b| a.name <=> b.name}
-    end  
-  
   def songs
     Song.find_by_album(self.id)
   end 
