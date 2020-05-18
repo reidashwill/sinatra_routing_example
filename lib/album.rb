@@ -1,15 +1,10 @@
 class Album
-  attr_reader :id, :name
-  attr_accessor :name, :year, :genre, :artist
-  @@albums = {}
-  @@total_rows = 0
+  attr_reader :id
+  attr_accessor :name
 
-  def initialize(name, id, year, genre, artist)
-    @name = name
-    @id = id || @@total_rows += 1
-    @year = year
-    @genre = genre
-    @artist = artist
+  def initialize(attributes)
+    @name = attributes.fetch(:name)
+    @id = attributes.fetch(:id)
   end
 
   def self.all

@@ -3,12 +3,10 @@ require('sinatra/reloader')
 require('./lib/album')
 require('./lib/song')
 require('pry')
+require("pg")
 also_reload('lib/**/*.rb')
 
-get ('/test') do
-  @something = "this is a variable"
-  erb(:whatever)
-end
+DB = PG.connect({:dbname => "record_store"})
 
 get('/') do
   @albums = Album.all
@@ -49,10 +47,6 @@ end
 get('/albums/:id') do
   @album = Album.find(params[:id].to_i())
   erb(:album)
-end
-
-post('/albums') do
-  "This route will add an album to our list of albums. We can't access this by typing in the URL. In a future lesson, we will use a form that specifies a POST action to reach this route."
 end
 
 get('/albums/:id/edit') do
