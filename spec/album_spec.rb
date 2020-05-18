@@ -19,16 +19,16 @@ describe '#Album' do
     end
   end
 
-#   describe('.clear') do
-#     it("clears all albums") do
-#       album = Album.new("Giant Steps", nil, nil, nil, nil)
-#       album.save()
-#       album2 = Album.new("Blue", nil, nil, nil, nil)
-#       album2.save()
-#       Album.clear()
-#       expect(Album.all).to(eq([]))
-#     end
-#   end
+  describe('.clear') do
+    it("clears all albums") do
+      album = Album.new({:name => "Blue", :id => nil})
+      album.save()
+      album2 = Album.new({:name => "Giant Steps", :id => nil})
+      album2.save()
+      Album.clear()
+      expect(Album.all).to(eq([]))
+    end
+  end
 
   describe('#==') do
     it("is the same album if it has the same attributes as another album") do
@@ -37,41 +37,41 @@ describe '#Album' do
     end
   end
 
-#   describe('.find') do
-#     it("finds an album by id") do
-#       album = Album.new("Giant Steps", nil, nil, nil, nil)
-#       album.save()
-#       album2 = Album.new("Blue", nil, nil, nil, nil)
-#       album2.save()
-#       expect(Album.find(album.id)).to(eq(album))
-#     end
-#   end
+  describe('.find') do
+    it("finds an album by id") do
+      album = Album.new({:name => "Giant Steps", :id => nil})
+      album.save()
+      album2 = Album.new({:name => "Blue", :id => nil})
+      album2.save()
+      expect(Album.find(album.id)).to(eq(album))
+    end
+  end
 
-#   describe('#update') do
-#     it("updates an album by id") do
-#       album = Album.new("Giant Steps", nil, nil, nil, nil)
-#       album.save()
-#       album.update("A Love Supreme")
-#       expect(album.name).to(eq("A Love Supreme"))
-#     end
-#   end
+  describe('#update') do
+    it("updates an album by id") do
+      album = Album.new({:name => "Giant Steps", :id => nil})
+      album.save()
+      album.update("A Love Supreme")
+      expect(album.name).to(eq("A Love Supreme"))
+    end
+  end
 
-#   describe('#delete') do
-#     it("deletes an album by id") do
-#       album = Album.new("Giant Steps", nil, nil, nil, nil)
-#       album.save()
-#       album2 = Album.new("Blue", nil, nil, nil, nil)
-#       album2.save()
-#       album.delete()
-#       expect(Album.all).to(eq([album2]))
-#     end
-#   end
+  describe('#delete') do
+    it("deletes an album by id") do
+      album = Album.new({:name => "Giant Steps", :id => nil})
+      album.save()
+      album2 = Album.new({:name => "Blue", :id => nil})
+      album2.save()
+      album.delete()
+      expect(Album.all).to(eq([album2]))
+    end
+  end
 
 #   describe('.search') do
 #     it("will allow you to search for an album") do
-#       album = Album.new("Blue", nil, nil, nil, nil)
+#       album = Album.new({:name => "Blue", :id => nil})
 #       album.save()
-#       album1 = Album.new("Master of Puppets", nil, nil, nil, nil)
+#       album1 = Album.new({:name => "Giant Steps", :id => nil})
 #       album1.save()
 #       # @@albums.search("Blue")
 #       expect(Album.search(album.name)).to(eq([album]))
@@ -80,19 +80,19 @@ describe '#Album' do
 
 #   describe('.sort') do
 #     it("will allow you to sort albums by name") do
-#       album1 = Album.new("In Trance", nil, nil, nil, nil)
-#       album1.save()
-#       album2 = Album.new("Sad Wings of Destiny", nil, nil, nil, nil)
-#       album2.save()
-#       album3 = Album.new("Bad Reputation", nil, nil, nil, nil)
-#       album3.save()
+        # album = Album.new({:name => "Blue", :id => nil}) # nil added as second argument
+        # album.save()
+        # album2 = Album.new({:name => "Giant Steps", :id => nil}) # nil added as second argument
+        # album2.save()
+        # album3 = Album.new({:name => "Test Album", :id => nil}) # nil added as second argument
+        # album3.save()
 #     expect(Album.sort()).to(eq([album3, album1, album2]))
 #     end
 #   end
 
 # describe('#songs') do
 #   it("returns an album's songs") do 
-#     album = Album.new("Giant Steps", nil, nil, nil, nil)
+#     album = Album.new({:name => "Giant Steps", :id => nil})
 #     album.save()
 #     song = Song.new("Naima", album.id, nil)
 #     song.save()
