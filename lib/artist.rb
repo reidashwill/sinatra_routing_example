@@ -10,7 +10,7 @@ class Artist
   def self.all
     returned_artists = DB.exec("SELECT * FROM artists")
     albums = []
-    returned_artists.each do |album|
+    returned_artists.each do |artist|
       name = artist.fetch("name")
       id = artist.fetch("id").to_i
       artists.push(Artist.new({:name => name, :id => id}))
@@ -36,6 +36,7 @@ class Artist
 
   def update(attributes)
     if (attributes.has_key?(:name)) && (attributes.fetch(:name) != nil)
+      @name = attributes.fetch(:name)
       DB.exec("UPDATE artists SET name = '#{@name}' WHERE id = #{@id};")
     elsif (attributes.has_key?(:album_name)) && (attributes.fetch(:album_name) != nil)
       album_name = attributes.fetch(:album_name)
@@ -47,6 +48,7 @@ class Artist
   end
 
   def delete
+    DB.exec("DELETE FROM albums_artists WHERE artist_id = #{@id};")
     DB.exec("DELETE FROM artists WHERE id = #{@id};")
   end
 
@@ -63,7 +65,16 @@ class Artist
 
 
   def albums
-    Album.find_by_artist(self.id)
-  end 
+    albums = []
+    results = DB.exec("SELECT album_id FROM albums_artists WHERE artist_id = #{@id};")
+    results.each() do |result|
+      album_id = result.fetch("album_id").to_i()
+      album = DB.exec("SELECT * FROM albums WHERE id = #{album_id};")
+      name = album.first().fetch("name")
+      albums.push(Album.new({:name => name, :id => album_id}))
+    end 
+    albums
+  end
+  
 end
 

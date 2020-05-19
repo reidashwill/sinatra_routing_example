@@ -88,3 +88,36 @@ delete('/albums/:id/songs/:song_id') do
   @album = Album.find(params[:id].to_i())
   erb(:album)
 end
+
+get('/artists') do
+  if (params[:search])
+    @artists = Artist.search(params[:search])
+  else
+    @artists = Artist.all
+  end
+  erb(:artists) 
+end
+
+get('/artists/:id') do
+  @artist = Artist.find(params[:id].to_i())
+  erb(:artist)
+end
+
+post('/artists') do
+  name = params[:artist_name]
+  artist = Artist.new({:name => name, :id => nil})
+  artist.save()
+  redirect to('/artists')
+end
+
+patch('/artists/:id') do
+  @artist = Artist.find(params[:id].to_i())
+  @artist.update(params[:name])
+  redirect to('/artists')
+end
+
+delete('/artists/:id') do
+  @artist = Artist.find(params[:id].to_i())
+  @artist.delete()
+  redirect to('/artsits')
+end
