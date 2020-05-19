@@ -9,7 +9,7 @@ class Artist
 
   def self.all
     returned_artists = DB.exec("SELECT * FROM artists")
-    albums = []
+    artists = []
     returned_artists.each do |artist|
       name = artist.fetch("name")
       id = artist.fetch("id").to_i

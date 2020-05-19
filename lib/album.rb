@@ -48,11 +48,18 @@ class Album
     self.name() == album_to_compare.name()
   end
 
-  def self.search(album_name)
-    album = DB.exec("SELECT * FROM albums WHERE name = '#{album_name}'").first 
-    name = album.fetch("name")
-    id = album.fetch("id").to_i
-    Album.new({:name => name, :id => id})
+   def self.search(search_name)
+    album_names = Album.all.map {|a| a.name }
+    result = []
+    names = album_names.grep(/#{search_name}/)
+    names.each do |n|
+      album = DB.exec("SELECT * FROM albums WHERE name = '#{n}'").first
+      name = album.fetch("name")
+      id = album.fetch("id")
+      return_album = Album.new({:name => name, :id => id})
+      result.push(return_album)
+    end
+    result
   end
 
   def songs

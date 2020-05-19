@@ -2,6 +2,7 @@ require('sinatra')
 require('sinatra/reloader')
 require('./lib/album')
 require('./lib/song')
+require('./lib/artist')
 require('pry')
 require("pg")
 also_reload('lib/**/*.rb')
@@ -9,15 +10,11 @@ also_reload('lib/**/*.rb')
 DB = PG.connect({:dbname => "record_store"})
 
 get('/') do
-  redirect to('/albums')
+ redirect to('/artists')
 end
 
 get('/albums') do
-  if (params[:search])
-    @albums = Album.search(params[:search])
-  else
-    @albums = Album.all
-  end
+  @albums = Album.all
   erb(:albums)  
 end
 
@@ -29,8 +26,11 @@ post('/albums') do
 end
 
 get('/albums/search') do
-  @search_result = Album.search(params[:search])
+  if @search_result = Album.search(params[:search])
   erb(:search_results)
+  else
+    erb(:albums)    
+  end
 end
 
 get('/albums/new') do
@@ -90,12 +90,12 @@ delete('/albums/:id/songs/:song_id') do
 end
 
 get('/artists') do
-  if (params[:search])
-    @artists = Artist.search(params[:search])
-  else
-    @artists = Artist.all
-  end
+  @artists = Artist.all
   erb(:artists) 
+end
+
+get('/artists/new') do
+  erb(:new_artist)
 end
 
 get('/artists/:id') do
@@ -120,4 +120,13 @@ delete('/artists/:id') do
   @artist = Artist.find(params[:id].to_i())
   @artist.delete()
   redirect to('/artsits')
+end
+
+post('/artists/:id') do
+  @artist = Artist.find(params[:id].to_i())
+  name = params[:album_name]
+  @album = Album.new({:name => name, :id => nil})
+  @album.save()
+  @artist.update({:album_name => @album.name})
+  erb(:artist)
 end
