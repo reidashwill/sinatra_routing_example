@@ -3,8 +3,8 @@
 <h3>Artist Albums</h3>
   <% if @artist.albums %>
     <ul>
-      <% @artist.albums.each do |song| %>
-        <li><a href="/artists/<%= @artist.id %>/albums/<%= @album.id %>"><%= @album.name %></a></li>
+      <% @artist.albums.each do |album| %>
+        <li><a href="/albums/<%= album.id %>"><%= album.name %></a></li>
       <% end %>
     </ul>
     <% else %>
@@ -20,5 +20,4 @@
   </form>
 
 <%# Album edit link %>
-<p><a href="/artists/<%= @artist.id %>/edit">Edit album</a></p>
-<p><a href="/artists">Return to album list</a></p>
+<button class="btn-success"><p><a href="/artists/<%= @artist.id %>/edit">Edit album</a></p></button>

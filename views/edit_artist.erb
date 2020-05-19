@@ -9,8 +9,6 @@
   <button type="submit">Update</button>
 </form>
 
-<p><a href="/albums">Return to Artist list</a></p>
-
 <form action="/artists/<%= @artist.id() %>" method="post">
   <input name="_method" type="hidden" value="delete">
 
