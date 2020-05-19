@@ -34,9 +34,22 @@ class Album
     Album.new({:name => name, :id => id})
   end
 
-  def update(name)
-    @name = name
-    DB.exec("UPDATE albums SET name = '#{@name}' WHERE id = #{@id};")
+  # def update(name)
+  #   @name = name
+  #   DB.exec("UPDATE albums SET name = '#{@name}' WHERE id = #{@id};")
+  # end
+
+  def update(attributes)
+    if (attributes.has_key?(:name)) && (attributes.fetch(:name) != nil)
+      @name = attributes.fetch(:name)
+      DB.exec("UPDATE albums SET name = '#{@name}' WHERE id = #{@id};")
+    elsif (attributes.has_key?(:artist_name)) && (attributes.fetch(:artist_name) != nil)
+      artist_name = attributes.fetch(:artist_name)
+      artist = DB.exec("SELECT * FROM artists WHERE lower(name)='#{artist_name.downcase}';").first
+      if artist != nil
+        DB.exec("INSERT INTO albums_artists (artist_id, album_id) VALUES (#{artist['id'].to_i}, #{@id});")
+      end
+    end
   end
 
   def delete
@@ -48,12 +61,12 @@ class Album
     self.name() == album_to_compare.name()
   end
 
-   def self.search(search_name)
-    album_names = Album.all.map {|a| a.name }
+  def self.search(search_name)
+    album_names = Album.all.map {|a| a.name.downcase }
     result = []
     names = album_names.grep(/#{search_name}/)
     names.each do |n|
-      album = DB.exec("SELECT * FROM albums WHERE name = '#{n}'").first
+      album = DB.exec("SELECT * FROM albums WHERE lower(name) = '#{n}'").first
       name = album.fetch("name")
       id = album.fetch("id")
       return_album = Album.new({:name => name, :id => id})

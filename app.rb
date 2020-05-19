@@ -27,11 +27,12 @@ end
 
 get('/albums/search') do
   if @search_result = Album.search(params[:search])
-  erb(:search_results)
+  erb(:album_search_results)
   else
     erb(:albums)    
   end
 end
+
 
 get('/albums/new') do
   erb(:new_album)
@@ -49,7 +50,7 @@ end
 
 patch('/albums/:id') do
   @album = Album.find(params[:id].to_i())
-  @album.update(params[:name])
+  @album.update({:name => params[:name], :artist_name => params[:artist_name]})
   redirect to('/albums')
 end
 
@@ -96,6 +97,14 @@ end
 
 get('/artists/new') do
   erb(:new_artist)
+end
+
+get('/artists/search') do
+  if @search_result = Artist.search(params[:search])
+  erb(:artist_search_results)
+  else
+    erb(:artists)    
+  end
 end
 
 get('/artists/:id') do

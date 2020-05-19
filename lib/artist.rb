@@ -56,13 +56,19 @@ class Artist
     self.name() == artist_to_compare.name()
   end
 
-  def self.search(artist_name)
-    artist = DB.exec("SELECT * FROM albums WHERE name = '#{artist_name}'").first 
-    name = artist.fetch("name")
-    id = artist.fetch("id").to_i
-    Artist.new({:name => name, :id => id})
+  def self.search(search_name)
+    artist_names = Artist.all.map {|a| a.name.downcase}
+    result = []
+    matching_names = artist_names.grep(/#{search_name}/)
+    matching_names.each do |n|
+      artist = DB.exec("SELECT * FROM artists WHERE lower(name) = '#{n}'").first 
+      name = artist.fetch("name")
+      id = artist.fetch("id").to_i
+      return_artist = Artist.new({:name => name, :id => id})
+      result.push(return_artist)
+    end
+    result
   end
-
 
   def albums
     albums = []

@@ -3,7 +3,7 @@
 <% if @search_result.any? %>
   <% @search_result.each do |result|  %>
     <ul>
-      <li><%= result.name %></li>
+      <li><a href="/artists/<%= result.id %>"><%= result.name %></li>
     </ul> 
     <%end%>
   <% else %>
